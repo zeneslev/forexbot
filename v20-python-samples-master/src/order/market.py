@@ -25,7 +25,7 @@ def main():
     marketOrderArgs = OrderArguments(parser)
     marketOrderArgs.add_instrument()
     marketOrderArgs.add_units()
-    marketOrderArgs.add_time_in_force(["FOK", "IOC"])
+    marketOrderArgs.add_time_in_force(["FOK", "IOC"])c
     marketOrderArgs.add_price_bound()
     marketOrderArgs.add_position_fill()
     marketOrderArgs.add_take_profit_on_fill()
