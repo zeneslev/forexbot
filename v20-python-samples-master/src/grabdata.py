@@ -8,6 +8,7 @@ import v20
 from datetime import datetime
 import pytz
 import pandas as pd
+
 import csv 
 
 
@@ -80,7 +81,7 @@ with open(filename, 'w',newline='\n') as csvfile:
         csvwriter = csv.writer(csvfile) 
 
         # field names 
-        fields = ['Time', 'Open', 'High', 'Low', 'Close','Volume']        
+        fields = ['DateTime', 'Open', 'High', 'Low', 'Close','Volume']        
         # writing the fields 
         csvwriter.writerow(fields) 
 
@@ -91,8 +92,7 @@ with open(filename, 'w',newline='\n') as csvfile:
                 high = getattr(candle, 'mid', None).h
                 low = getattr(candle, 'mid', None).l
                 close = getattr(candle, 'mid', None).c
-
-                csvwriter.writerow((str(dt),open,high,low,close,volume))
+                csvwriter.writerow((dt,open,high,low,close,volume))
         
 
 
