@@ -5,6 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 import csv 
+import time
 
 
 def SMA(values, n):
@@ -38,14 +39,17 @@ class SmaCross(Strategy):
             self.position.close()
             self.sell()
 
+
+start = time.time()
+
 #Load up data
 df = pd.read_csv("USD_JPY_M5.csv", parse_dates=["DateTime"]) #Set the time column to be datetime objects
 df.set_index('DateTime', inplace=True) #Make dataframe indexable by datetime
 
 bt = Backtest(df, SmaCross, cash=3_000, commission=0)
 
-stats, heatmap = bt.optimize(n1=range(5, 30, 10),
-                    n2=range(10, 200, 10),
+stats, heatmap = bt.optimize(n1=range(5, 30, 2),
+                    n2=range(10, 200, 2),
                     maximize='Equity Final [$]',
                     constraint=lambda param: param.n1 < param.n2,
                     return_heatmap = True)
@@ -66,3 +70,7 @@ plt.savefig(fname="heatmap.png", format="png")
 #print(stats['_trades'])
 
 #bt.plot()
+
+end = time.time()
+elapsed_time = end-start
+print ("Elapsed time in seconds: " + str(elapsed_time))
